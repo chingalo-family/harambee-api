@@ -11,8 +11,12 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filters';
 
 @Module({
-  // imports: [TypeOrmModule.forRoot(),ConfigModule.forRoot(), MichangoModule, KitengoModule],
-  imports: [MichangoModule, KitengoModule, ConfigModule.forRoot()],
+  imports: [
+    TypeOrmModule.forRoot(),
+    ConfigModule.forRoot(),
+    MichangoModule,
+    KitengoModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
