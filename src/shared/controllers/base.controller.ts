@@ -12,8 +12,6 @@ import {
 import { BaseService } from '../services/base.service';
 import { CustomValidationPipe } from '../pipes/validation.pipe';
 import { AuthGuard } from '../guards/auth.guard';
-// import { UserDecorator } from 'src/modules/user/decorators/user.decorator';
-// import { User } from 'src/modules/user/entities/user.entity';
 
 export class BaseController<T, U> {
   constructor(private readonly baseService: BaseService<T, U>) {}
