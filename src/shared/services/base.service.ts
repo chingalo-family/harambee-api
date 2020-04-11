@@ -6,7 +6,6 @@ export class BaseService<T, U> {
 
   async findAll(): Promise<T[]> {
     const data = await this.repository.find();
-
     return data;
   }
 
