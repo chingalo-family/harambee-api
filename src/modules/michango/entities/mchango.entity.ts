@@ -1,5 +1,7 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
+import { Kanda } from 'src/modules/kitengo/entities/kanda.entity';
+import { Jumuhiya } from '../../kitengo/entities/jumuhiya.entity';
 
 @Entity()
 export class Mchango extends Identifiable {
@@ -11,4 +13,22 @@ export class Mchango extends Identifiable {
 
   @Column('int', { name: 'mass', nullable: true })
   mass: number;
+
+  @ManyToOne(
+    type => Kanda,
+    kanda => kanda.mchango,
+    {
+      nullable: true,
+    },
+  )
+  kanda: Kanda;
+
+  @ManyToOne(
+    type => Jumuhiya,
+    jumuhiya => jumuhiya.mchango,
+    {
+      nullable: true,
+    },
+  )
+  jumuhiya: Jumuhiya;
 }
