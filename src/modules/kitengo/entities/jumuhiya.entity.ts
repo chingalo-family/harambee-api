@@ -1,11 +1,11 @@
-import { Entity, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
 import { Kanda } from './kanda.entity';
 import { Mchango } from 'src/modules/michango/entities/mchango.entity';
 
 @Entity()
 export class Jumuhiya extends Identifiable {
-  @PrimaryColumn('text', { name: 'name', nullable: false })
+  @Column({ name: 'name', nullable: false, type: 'varchar', length: 200 })
   name: string;
 
   @ManyToOne(

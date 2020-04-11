@@ -1,6 +1,15 @@
-import { BeforeInsert, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryColumn,
+} from 'typeorm';
+import { generateId } from '../helpers/id-generator.helper';
 
 export class Identifiable {
+  @PrimaryColumn({ name: 'id', nullable: false, type: 'varchar', length: 256 })
+  id: string;
+
   @CreateDateColumn({
     type: 'timestamp',
     name: 'created',
@@ -24,5 +33,6 @@ export class Identifiable {
   @BeforeInsert()
   beforeUpdateTransaction() {
     this.lastUpdated = new Date();
+    this.id = generateId();
   }
 }
