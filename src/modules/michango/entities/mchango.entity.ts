@@ -1,11 +1,18 @@
-import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  ManyToOne,
+  BeforeInsert,
+} from 'typeorm';
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
 import { Kanda } from 'src/modules/kitengo/entities/kanda.entity';
 import { Jumuhiya } from '../../kitengo/entities/jumuhiya.entity';
+import { generateId } from 'src/shared/helpers/id-generator.helper';
 
 @Entity()
 export class Mchango extends Identifiable {
-  @PrimaryColumn('text', { name: 'id', nullable: false })
+  @PrimaryColumn({ name: 'id', nullable: false, type: 'varchar', length: 256 })
   id: string;
 
   @Column('int', { name: 'amount', nullable: false })
@@ -31,4 +38,9 @@ export class Mchango extends Identifiable {
     },
   )
   jumuhiya: Jumuhiya;
+
+  @BeforeInsert()
+  beforeInsertMchango() {
+    this.id = generateId();
+  }
 }
