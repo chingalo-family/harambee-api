@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryColumn,
+  BeforeUpdate,
 } from 'typeorm';
 import { generateId } from '../helpers/id-generator.helper';
 
@@ -28,11 +29,11 @@ export class Identifiable {
   beforeInsertTransaction() {
     this.created = new Date();
     this.lastUpdated = new Date();
+    this.id = generateId();
   }
 
-  @BeforeInsert()
+  @BeforeUpdate()
   beforeUpdateTransaction() {
     this.lastUpdated = new Date();
-    this.id = generateId();
   }
 }
