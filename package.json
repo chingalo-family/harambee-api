@@ -26,6 +26,7 @@
         "@nestjs/platform-express": "^6.7.2",
         "@nestjs/typeorm": "^7.0.0",
         "@nestjsx/crud": "^4.4.2",
+        "bcryptjs": "^2.4.3",
         "class-transformer": "^0.2.3",
         "class-validator": "^0.11.1",
         "commitizen": "^4.0.3",
