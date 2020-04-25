@@ -1,6 +1,7 @@
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
-import { Entity, Column, BeforeInsert } from 'typeorm';
+import { Entity, Column, BeforeInsert, ManyToOne } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { UserRoles } from '../../user-roles/entities/user-role.entity';
 
 @Entity('user')
 export class Users extends Identifiable {
@@ -9,6 +10,12 @@ export class Users extends Identifiable {
 
   @Column('text', { name: 'password' })
   password?: string;
+
+  @ManyToOne(
+    type => UserRoles,
+    role => role.id,
+  )
+  userRole: UserRoles;
 
   @BeforeInsert()
   async hasPassword() {

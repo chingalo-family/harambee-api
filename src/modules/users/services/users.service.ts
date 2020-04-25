@@ -1,5 +1,5 @@
 import { BaseService } from '../../../shared/services/base.service';
-import { Users } from '../entities/users.entities';
+import { Users } from '../entities/users.entity';
 import { UserDTO } from '../dtos/user.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
