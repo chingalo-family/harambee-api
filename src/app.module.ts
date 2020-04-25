@@ -9,6 +9,8 @@ import { MichangoModule } from './modules/michango/michango.module';
 import { KitengoModule } from './modules/kitengo/kitengo.module';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filters';
+import { UsersModule } from './modules/users/users.module';
+import { UserRolesModule } from './modules/user-roles/user-roles.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { HttpExceptionFilter } from './shared/filters/http-exception.filters';
     ConfigModule.forRoot(),
     MichangoModule,
     KitengoModule,
+    UsersModule,
+    UserRolesModule,
   ],
   controllers: [AppController],
   providers: [

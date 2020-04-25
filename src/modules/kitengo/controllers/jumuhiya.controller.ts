@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UsePipes } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 
 import { BaseController } from 'src/shared/controllers/base.controller';
 import { Jumuhiya } from '../entities/jumuhiya.entity';
