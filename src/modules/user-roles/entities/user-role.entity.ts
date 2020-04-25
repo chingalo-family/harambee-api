@@ -4,7 +4,7 @@ import { Users } from '../../users/entities/users.entity';
 
 @Entity('userrole')
 export class UserRoles extends Identifiable {
-  @Column('text', { name: 'username', unique: true })
+  @Column('text', { name: 'name', unique: true })
   name: string;
 
   @OneToMany(
