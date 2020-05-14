@@ -8,4 +8,7 @@ export class UserDTO {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsString()
+  userRole: string;
 }
