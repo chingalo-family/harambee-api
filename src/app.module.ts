@@ -11,7 +11,6 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filters';
 import { UsersModule } from './modules/users/users.module';
 import { UserRolesModule } from './modules/user-roles/user-roles.module';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { AuthModule } from './auth/auth.module';
     KitengoModule,
     UsersModule,
     UserRolesModule,
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [

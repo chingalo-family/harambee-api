@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Users } from '../../modules/users/entities/users.entity';
+import { Users } from '../entities/users.entity';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
