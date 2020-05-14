@@ -4,10 +4,11 @@ import {
   UpdateDateColumn,
   PrimaryColumn,
   BeforeUpdate,
+  BaseEntity,
 } from 'typeorm';
 import { generateId } from '../helpers/id-generator.helper';
 
-export class Identifiable {
+export class Identifiable extends BaseEntity {
   @PrimaryColumn({ name: 'id', nullable: false, type: 'varchar', length: 256 })
   id: string;
 
