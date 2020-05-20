@@ -16,7 +16,7 @@ export class UsersService extends BaseService<Users, UserDTO> {
 
   async findUserByToken(token): Promise<Users> {
     return await this.UsersRepository.findOne({
-      where: { confirmationToken: token },
+      where: { token },
     });
   }
   async findUserByUsername(username): Promise<Users> {

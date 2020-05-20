@@ -3,7 +3,7 @@ import { Entity, Column, BeforeInsert, ManyToOne } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { UserRoles } from '../../user-roles/entities/user-role.entity';
 
-@Entity('user')
+@Entity('users')
 export class Users extends Identifiable {
   @Column('text', { name: 'username', unique: true })
   username: string;
@@ -11,19 +11,18 @@ export class Users extends Identifiable {
   @Column('text', { name: 'password' })
   password?: string;
 
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 255,
+  })
+  token: string;
+
   @ManyToOne(
     type => UserRoles,
     role => role.id,
   )
   userRole: UserRoles;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 255,
-    default: () => 'NULL::varchar',
-  })
-  token: string | null;
 
   public static getBase64(username: string, password: string) {
     return Buffer.from(username + ':' + password).toString('base64');
@@ -41,8 +40,8 @@ export class Users extends Identifiable {
   }
 
   @BeforeInsert()
-  createToken() {
-    this.token = Users.getBase64(this.username, this.password);
+  async createToken() {
+    this.token = await Users.getBase64(this.username, this.password);
   }
 
   @BeforeInsert()
