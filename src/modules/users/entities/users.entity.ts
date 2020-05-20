@@ -2,6 +2,7 @@ import { Identifiable } from '../../../shared/entities/identifiable.entity';
 import { Entity, Column, BeforeInsert, ManyToOne } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { UserRoles } from '../../user-roles/entities/user-role.entity';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Entity('users')
 export class Users extends Identifiable {
@@ -29,14 +30,33 @@ export class Users extends Identifiable {
   }
 
   public static async authenticateUserByToken(token: string): Promise<Users> {
-    let user: Users;
-    user = await Users.findOne({
-      where: { token },
-    });
-    if (user) {
-      delete user.token;
-      return user;
+    try {
+      let user: Users;
+      user = await Users.findOne({
+        where: { token },
+      });
+      if (user) {
+        delete user.token;
+        return user;
+      }
+    } catch (e) {
+      throw new HttpException(
+        'Incorrect username/password',
+        HttpStatus.BAD_REQUEST,
+      );
     }
+  }
+
+  toResponseObject(showToken: boolean = false) {
+    const { id, created, username, token } = this;
+
+    let responseObject: any = { id, created, username };
+
+    if (showToken) {
+      responseObject = { ...responseObject, token };
+    }
+
+    return responseObject;
   }
 
   @BeforeInsert()

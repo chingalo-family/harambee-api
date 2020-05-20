@@ -10,9 +10,7 @@ import { Users } from '../entities/users.entity';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<any> {
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest();
 
@@ -23,13 +21,15 @@ export class SessionGuard implements CanActivate {
       }
 
       if (request.headers['authorization']) {
-        const user = Users.authenticateUserByToken(
+        const user = await Users.authenticateUserByToken(
           request.headers['authorization'].replace('Basic ', ''),
         );
 
         if (user) {
           request.session.user = user;
           return true;
+        } else {
+          return false;
         }
       }
     } catch (e) {

@@ -21,7 +21,7 @@ export class AuthController {
     const user = await this.authService.login(params.username, params.password);
     if (user) {
       request.session.user = user;
-      return user;
+      return user.toResponseObject();
     } else {
       return {
         httpStatus: 'Unauthorized',
