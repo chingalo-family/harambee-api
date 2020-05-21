@@ -9,10 +9,13 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: 'secret-key',
-      name: 'sess-tutorial',
+      secret: process.env.SECRET || 'chingalo',
+      name: 'harambee-api',
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        maxAge: 60 * 60 * 24 * 1000,
+      },
     }),
   );
   await app.listen(port);
