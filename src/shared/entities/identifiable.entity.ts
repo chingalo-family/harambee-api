@@ -2,14 +2,14 @@ import {
   BeforeInsert,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   BeforeUpdate,
   BaseEntity,
 } from 'typeorm';
 import { generateId } from '../helpers/id-generator.helper';
 
 export class Identifiable extends BaseEntity {
-  @PrimaryColumn({ name: 'id', nullable: false, type: 'varchar', length: 256 })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
