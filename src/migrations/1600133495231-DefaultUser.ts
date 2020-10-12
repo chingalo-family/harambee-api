@@ -5,13 +5,15 @@ import { generateBasicAuthanticationString } from 'src/modules/users/helpers/bas
 
 export class DefaultUser1600133495231 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.query(`INSERT INTO userrole(name) VALUES ('admin');`);
+    await queryRunner.query(
+      `INSERT INTO userrole(name) VALUES ('${process.env.ADMIN_ROLE}');`,
+    );
     const adminRole = await queryRunner.query(
-      `SELECT id FROM userrole WHERE name = 'admin'`,
+      `SELECT id FROM userrole WHERE name = '${process.env.ADMIN_ROLE}'`,
     );
 
     await queryRunner.query(`
-    INSERT INTO users (username, password, token) VALUES ('${
+    INSERT INTO users (username, password, token, role) VALUES ('${
       process.env.ADMIN_USERNAME
     }', '${await bcrypt.hash(
       process.env.ADMIN_PASSWORD,
@@ -19,7 +21,7 @@ export class DefaultUser1600133495231 implements MigrationInterface {
     )}', '${generateBasicAuthanticationString(
       process.env.ADMIN_USERNAME,
       process.env.ADMIN_PASSWORD,
-    )}');
+    )}', '${adminRole[0].id}');
     `);
   }
 

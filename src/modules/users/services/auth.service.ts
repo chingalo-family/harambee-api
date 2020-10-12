@@ -10,8 +10,6 @@ export class AuthService {
   async login(username: string, password: string): Promise<Users> {
     const token = generateBasicAuthanticationString(username, password);
     const user = Users.authenticateUserByToken(token);
-    // const user = this.usersService.findUserByUsername(username);
-
     return user;
   }
 }
