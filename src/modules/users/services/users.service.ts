@@ -7,6 +7,7 @@ import { BaseService } from '../../../shared/services/base.service';
 import { User } from '../entities/users.entity';
 import { UserDTO } from '../dtos/user.dto';
 import { UserRoleService } from '../../user-roles/services/user-roles.service';
+import { userSanitizer } from '../helpers/user-sanitizer.helper';
 
 @Injectable()
 export class UsersService extends BaseService<User, UserDTO> {
@@ -45,7 +46,8 @@ export class UsersService extends BaseService<User, UserDTO> {
       userRole: role,
     });
 
-    return await this.findOneById(user.id);
+    const createdUser = await this.findOneById(user.id);
+    return userSanitizer(createdUser);
   }
 
   async findUserByToken(token): Promise<User> {
@@ -72,7 +74,7 @@ export class UsersService extends BaseService<User, UserDTO> {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
-    return user;
+    return userSanitizer(user);
   }
 
   async findAll(): Promise<any[]> {
@@ -80,7 +82,7 @@ export class UsersService extends BaseService<User, UserDTO> {
       relations: this.relations,
     });
 
-    return users.map(user => user);
+    return users.map(user => userSanitizer(user));
   }
 
   get relations() {

@@ -19,7 +19,7 @@ export class BaseService<T, U> {
     return data;
   }
 
-  async create(data: U) {
+  async create(data: U): Promise<any> {
     const dataResult = await this.repository.create(data);
 
     await this.repository.save(dataResult);
