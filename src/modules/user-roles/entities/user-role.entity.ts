@@ -1,6 +1,6 @@
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
-import { Users } from '../../users/entities/users.entity';
+import { User } from '../../users/entities/users.entity';
 
 @Entity('userrole')
 export class UserRoles extends Identifiable {
@@ -8,8 +8,8 @@ export class UserRoles extends Identifiable {
   name: string;
 
   @OneToMany(
-    type => Users,
+    type => User,
     user => user.id,
   )
-  users: Users[];
+  users: User[];
 }

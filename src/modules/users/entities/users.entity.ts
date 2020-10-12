@@ -5,17 +5,18 @@ import { UserRoles } from '../../user-roles/entities/user-role.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Entity('users')
-export class Users extends Identifiable {
+export class User extends Identifiable {
   @Column('text', { name: 'username', unique: true })
   username: string;
 
-  @Column('text', { name: 'password' })
+  @Column('text', { name: 'password', select: false })
   password?: string;
 
   @Column({
     type: 'varchar',
     nullable: true,
     length: 255,
+    select: false,
   })
   token: string;
 
@@ -30,10 +31,10 @@ export class Users extends Identifiable {
     return Buffer.from(username + ':' + password).toString('base64');
   }
 
-  public static async authenticateUserByToken(token: string): Promise<Users> {
+  public static async authenticateUserByToken(token: string): Promise<User> {
     try {
-      let user: Users;
-      user = await Users.findOne({
+      let user: User;
+      user = await User.findOne({
         where: { token },
       });
       if (user) {
@@ -62,7 +63,7 @@ export class Users extends Identifiable {
 
   @BeforeInsert()
   async createToken() {
-    this.token = await Users.getBase64(this.username, this.password);
+    this.token = await User.getBase64(this.username, this.password);
   }
 
   @BeforeInsert()

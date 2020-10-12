@@ -8,7 +8,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserRoleService extends BaseService<UserRoles, UserRolesDTO> {
+  userRoleRepository: Repository<UserRoles>;
   constructor(@InjectRepository(UserRoles) repository: Repository<UserRoles>) {
     super(repository);
+    this.userRoleRepository = repository;
   }
 }

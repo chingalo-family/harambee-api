@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Users } from '../entities/users.entity';
+import { User } from '../entities/users.entity';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
@@ -21,7 +21,7 @@ export class SessionGuard implements CanActivate {
       }
 
       if (request.headers['authorization']) {
-        const user = await Users.authenticateUserByToken(
+        const user = await User.authenticateUserByToken(
           request.headers['authorization'].replace('Basic ', ''),
         );
 
