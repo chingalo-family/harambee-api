@@ -6,7 +6,9 @@ import { UserDTO } from '../dtos/user.dto';
 import { UsersService } from '../services/users.service';
 import { CustomValidationPipe } from 'src/shared/pipes/validation.pipe';
 import { SessionGuard } from '../guards/session.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController extends BaseController<Users, UserDTO> {
   constructor(private readonly usersService: UsersService) {
