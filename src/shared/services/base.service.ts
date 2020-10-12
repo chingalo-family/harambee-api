@@ -20,11 +20,9 @@ export class BaseService<T, U> {
   }
 
   async create(data: U): Promise<any> {
-    const dataResult = await this.repository.create(data);
+    const createdData = await this.repository.save(data);
 
-    await this.repository.save(dataResult);
-
-    return dataResult;
+    return createdData;
   }
 
   async update(id: string, data: QueryDeepPartialEntity<T>) {
