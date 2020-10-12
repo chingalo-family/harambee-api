@@ -1,5 +1,5 @@
 import { Identifiable } from '../../../shared/entities/identifiable.entity';
-import { Entity, Column, BeforeInsert, ManyToOne } from 'typeorm';
+import { Entity, Column, BeforeInsert, ManyToOne, JoinColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { UserRoles } from '../../user-roles/entities/user-role.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
@@ -23,6 +23,7 @@ export class Users extends Identifiable {
     type => UserRoles,
     role => role.id,
   )
+  @JoinColumn({ name: 'role' })
   userRole: UserRoles;
 
   public static getBase64(username: string, password: string) {
