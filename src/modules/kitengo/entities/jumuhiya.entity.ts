@@ -5,7 +5,13 @@ import { Mchango } from 'src/modules/michango/entities/mchango.entity';
 
 @Entity()
 export class Jumuhiya extends Identifiable {
-  @Column({ name: 'name', nullable: false, type: 'varchar', length: 200 })
+  @Column({
+    name: 'name',
+    nullable: false,
+    type: 'varchar',
+    length: 200,
+    unique: true,
+  })
   name: string;
 
   @ManyToOne(

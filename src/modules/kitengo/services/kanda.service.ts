@@ -7,7 +7,9 @@ import { KandaDTO } from '../dtos/kanda.dto';
 
 @Injectable()
 export class KandaService extends BaseService<Kanda, KandaDTO> {
+  kandRepository: Repository<Kanda>;
   constructor(@InjectRepository(Kanda) repository: Repository<Kanda>) {
     super(repository);
+    this.kandRepository = repository;
   }
 }
