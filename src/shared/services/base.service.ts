@@ -4,13 +4,20 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 export class BaseService<T, U> {
   constructor(private readonly repository: Repository<T>) {}
 
+  get relations() {
+    return [];
+  }
+
   async findAll(): Promise<T[]> {
-    const data = await this.repository.find();
+    const data = await this.repository.find({ relations: this.relations });
     return data;
   }
 
   async findOneById(id: string): Promise<T> {
-    const data = await this.repository.findOne({ where: { id } });
+    const data = await this.repository.findOne({
+      where: { id },
+      relations: this.relations,
+    });
 
     if (!data) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
